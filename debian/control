@@ -1,0 +1,11 @@
+Source: pmtr
+Maintainer: Michael Moore <oss@x42.group>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.3
+Section: utils
+
+Package: pmtr
+Priority: extra  
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}  
+Description: imple supervisory daemon for linux services

@@ -1,0 +1,14 @@
+FROM debian:buster
+ENV RELEASE_VERSION 2020.01
+
+RUN apt-get update \
+    && apt-get -y install build-essential dh-make build-essential \
+                  autoconf automake devscripts build-essential lintian \
+                  ronn pbuilder debootstrap
+
+COPY . /usr/src/app/pmtr-$RELEASE_VERSION
+
+WORKDIR /usr/src/app/pmtr-$RELEASE_VERSION
+
+CMD debuild -uc -us && \
+    cp -v /usr/src/app/pmtr_${RELEASE_VERSION}_amd64.deb /output/
