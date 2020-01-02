@@ -3,5 +3,5 @@
 	dh $@
 
 override_dh_auto_build:
-	ronn doc/pmtr.8.ronn -o debian/
+	ronn doc/pmtr.8.ronn -o debian
 	dh_auto_build

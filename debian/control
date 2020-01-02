@@ -6,6 +6,6 @@ Section: utils
 
 Package: pmtr
 Priority: extra  
-Architecture: amd64
-Depends: ${shlibs:Depends}, ${misc:Depends}  
-Description: imple supervisory daemon for linux services
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libc6, 
+Description: simple supervisory daemon for linux services

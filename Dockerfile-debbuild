@@ -4,11 +4,38 @@ ENV RELEASE_VERSION 2020.01
 RUN apt-get update \
     && apt-get -y install build-essential dh-make build-essential \
                   autoconf automake devscripts build-essential lintian \
-                  ronn pbuilder debootstrap
+                  ronn pbuilder debootstrap apt-utils
 
-COPY . /usr/src/app/pmtr-$RELEASE_VERSION
+RUN dpkg --add-architecture armhf && \
+    dpkg --add-architecture i386 && \
+    dpkg --add-architecture armel && \
+    dpkg --add-architecture armhf && \
+    dpkg --add-architecture arm64 && \
+    dpkg --add-architecture mips && \
+    dpkg --add-architecture mips64el && \
+    dpkg --add-architecture mipsel && \
+    dpkg --add-architecture ppc64el && \
+    dpkg --add-architecture s390x && \
+    apt-get update && \
+    apt-get install -y build-essential crossbuild-essential-armhf crossbuild-essential-armhf \
+                    crossbuild-essential-i386 crossbuild-essential-armel crossbuild-essential-armhf \
+                    crossbuild-essential-arm64 crossbuild-essential-mips crossbuild-essential-mips64el \
+                    crossbuild-essential-mipsel crossbuild-essential-ppc64el crossbuild-essential-s390x \
+                    libc6:amd64 libc6:armhf libc6:i386 libc6:armel libc6:armhf libc6:arm64 libc6:mips \
+                    libc6:mips64el libc6:ppc64el libc6:s390x
 
 WORKDIR /usr/src/app/pmtr-$RELEASE_VERSION
+COPY . /usr/src/app/pmtr-$RELEASE_VERSION
 
-CMD debuild -uc -us && \
-    cp -v /usr/src/app/pmtr_${RELEASE_VERSION}_amd64.deb /output/
+CMD debuild -uc -us --host-arch amd64 && \
+    debuild -uc -us --host-arch armhf && \
+    debuild -uc -us --host-arch i386 && \
+    debuild -uc -us --host-arch armel && \
+    debuild -uc -us --host-arch armhf && \
+    debuild -uc -us --host-arch arm64 && \
+    debuild -uc -us --host-arch mips && \
+    debuild -uc -us --host-arch mips64el && \
+    debuild -uc -us --host-arch ppc64el && \
+    debuild -uc -us --host-arch s390x && \
+    cp -v /usr/src/app/pmtr_${RELEASE_VERSION}*.deb /output/
+
