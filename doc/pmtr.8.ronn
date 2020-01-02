@@ -5,7 +5,8 @@ pmtr(8) -- Simple supervisory daemon for linux services
 
 pmtr(8) is a simple supervisory daemon for linux services. pmtr(8) runs under systemd as well 
 as other init mechanisms like sysvinit, etc.  It can also run as process 1 inside a container.  
-When installing on many flavors or Linux, it can detect the nost init and set itself up to 
+
+When installing on many flavors or Linux, it can detect the host init and set itself up to 
 start at boot appropriately.  
 
 ## DESCRIPTION
